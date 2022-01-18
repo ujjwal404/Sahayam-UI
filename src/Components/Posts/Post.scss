@@ -1,0 +1,205 @@
+@import '../../Utils/variables.scss';
+body::-webkit-scrollbar {
+	display: none;
+}
+a {
+	color: white;
+	text-decoration: none;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.container .post-card {
+	background-color: $post-color;
+	width: 100%;
+	height: auto;
+	display: flex;
+	border-radius: 0.3rem;
+	margin: 10px;
+	color: $white;
+}
+
+// *********************************************************** //
+.container .post-card .post-card__nav {
+	display: flex;
+	border-radius: 0.3rem;
+}
+.container .post-card .post-card__nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 70px;
+	background-color: #22313f;
+	border-bottom-left-radius: 0.3rem;
+	border-top-left-radius: 0.3rem;
+}
+.container .post-card .post-card__nav ul li {
+	text-align: center;
+	border-bottom: 2px solid rgb(27, 38, 50);
+	height: 33.33%;
+	justify-content: center;
+}
+
+.container .post-card .post-card__nav ul li:last-child {
+	border: none;
+}
+.container .post-card .post-card__nav ul li span {
+	display: block;
+	color: #fff;
+	height: 100%;
+	line-height: 90px;
+	text-decoration: none;
+	justify-content: center;
+	align-items: center;
+}
+.container .post-card .post-card__nav ul li:first-child span {
+	border-top-left-radius: 0.3rem;
+	background-color: #f44242;
+}
+.container .post-card .post-card__nav ul li:last-child span {
+	border-bottom-left-radius: 0.3rem;
+}
+
+.container .post-card .post-card__nav ul li span:hover:not(.active) {
+	background-color: #2d3f53;
+	height: 100%;
+	cursor: pointer;
+}
+.active {
+	background-color: #f44242;
+	color: white;
+}
+
+// *********************************************************** //
+.post-card__content {
+	background-color: $post-color;
+	color: $text-color;
+	display: flex;
+	position: relative;
+	width: calc(100% - 70px);
+	height: auto;
+	padding: 25px;
+}
+
+.post-card__info h1 {
+	color: $text-color;
+	display: block;
+	margin: 0;
+	font-size: 1.1em;
+	font-weght: 100;
+}
+.post-card__info h5 {
+	color: $text-lite;
+	display: block;
+	margin-top: 0.7rem;
+	font-weight: 100;
+}
+.post-card__info h5 span {
+	color: $text-lite;
+	font-weight: 300;
+}
+.post-card__info p {
+	margin-top: 1rem;
+	color: $text-dull;
+	font-size: 0.7em;
+	font-weight: 300;
+	line-height: 1.3rem;
+	text-align: left;
+}
+.post-card__info a {
+	color: #f44242;
+	text-decoration: none;
+	margin-top: 0.7rem;
+	display: inline-block;
+	font-size: 0.7em;
+}
+.post-card__info a:hover {
+	text-decoration: underline;
+}
+// *********************************************************** //
+.post-card__img {
+	img {
+		width: 100%;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		display: flex;
+		justify-content: flex-end;
+		align-items: flex-end;
+		border-bottom-right-radius: 0.3rem;
+		border-top-right-radius: 0.3rem;
+		transition: all 1s;
+	}
+}
+
+@media (max-width: 34rem) {
+	.container .post-card {
+		width: 304px;
+		height: 550px;
+		margin: 0px;
+		position: relative;
+	}
+
+	.container .post-card .post-card__nav {
+		width: 100%;
+	}
+	.container .post-card .post-card__nav ul {
+		height: 70px;
+		width: 100%;
+		border-top-right-radius: 0.3rem;
+		border-top-left-radius: 0.3rem;
+	}
+	.container .post-card .post-card__nav ul li {
+		float: left;
+		display: inline-block;
+		border-bottom: none;
+		border-right: 2px solid rgb(27, 38, 50);
+	}
+	.container .post-card .post-card__nav ul li a {
+		height: 70px;
+		max-width: 100px;
+		width: 32vw;
+		line-height: 80px;
+		text-decoration: none;
+	}
+	.container .post-card .post-card__nav ul li:last-child a {
+		border-radius: 0;
+		border-top-right-radius: 0.3rem;
+	}
+	.container .post-card .post-card__nav ul li a:hover:not(.active) {
+		width: 100px;
+		height: 70px;
+	}
+
+	.container .post-card .post-card__content {
+		position: absolute;
+		top: calc(70px + 40%);
+		justify-content: center;
+		left: 0;
+		width: 100%;
+		align-items: center;
+	}
+	.post-card__info {
+		text-align: center;
+	}
+	.post-card__info h1,
+	.post-card__info p {
+		text-align: center;
+	}
+
+	.post-card__img {
+		position: absolute;
+		height: 40%;
+		width: 100%;
+		top: 70px;
+		left: 0;
+		background-position: 0rem;
+		border-radius: 0;
+	}
+}

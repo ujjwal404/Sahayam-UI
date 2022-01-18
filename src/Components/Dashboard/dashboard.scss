@@ -1,0 +1,86 @@
+@import '../../Utils/variables.scss';
+
+.dashboard-darktheme-darkblue {
+	background-color: #2c3e50;
+	color: #fff;
+}
+
+// dashboard with sidebar and posts
+
+.main-dashboard-darktheme {
+	margin-top: 60px;
+	background-color: $background-color;
+	height: 100vh;
+	color: #eee;
+	display: grid;
+	grid-template-columns: 0.5fr 1.5fr;
+	grid-template-areas: 'sidebar content';
+
+	.sidebar {
+		grid-area: sidebar;
+		width: 100%;
+		background-color: $background-color;
+		color: #eee;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+		padding: 0.5rem;
+		font-size: 1.5rem;
+		font-weight: bold;
+	}
+
+	.content {
+		grid-area: content;
+		background-color: $background-color;
+		color: #eee;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.5rem;
+		font-size: 1.5rem;
+		font-weight: bold;
+	}
+}
+
+.post-box {
+	background-color: $navbar-color;
+	color: $text-color;
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	width: 100%;
+	margin-top: 10px;
+	border-radius: 10px;
+	font-weight: 400;
+	border: 1px solid $border-color;
+
+	.add-post-btn {
+		margin: 0px auto;
+		width: 100%;
+		justify-content: center;
+		padding: 10px 0px;
+		border-bottom: 1px solid $border-color;
+		button {
+			cursor: pointer;
+			padding: 12px 25px;
+			font-size: 20px;
+			border-radius: 100px;
+			color: $white;
+			border: none;
+			background-color: $button-primary;
+		}
+	}
+	.NGOlist {
+		padding: 10px 0px;
+		font-size: 20px;
+		font-weight: 300;
+		ul {
+			list-style: none;
+			li {
+				margin-top: 10px;
+			}
+		}
+	}
+}
