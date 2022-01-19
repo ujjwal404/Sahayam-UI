@@ -8,6 +8,7 @@ a {
 }
 
 .container {
+	margin: 0;
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -38,8 +39,10 @@ a {
 	background-color: #22313f;
 	border-bottom-left-radius: 0.3rem;
 	border-top-left-radius: 0.3rem;
+	transition: all 1s;
 }
 .container .post-card .post-card__nav ul li {
+	cursor: pointer;
 	text-align: center;
 	border-bottom: 2px solid rgb(27, 38, 50);
 	height: 33.33%;
@@ -60,19 +63,11 @@ a {
 }
 .container .post-card .post-card__nav ul li:first-child span {
 	border-top-left-radius: 0.3rem;
-	background-color: #f44242;
 }
 .container .post-card .post-card__nav ul li:last-child span {
 	border-bottom-left-radius: 0.3rem;
 }
-
-.container .post-card .post-card__nav ul li span:hover:not(.active) {
-	background-color: #2d3f53;
-	height: 100%;
-	cursor: pointer;
-}
 .active {
-	background-color: #f44242;
 	color: white;
 }
 
@@ -86,7 +81,26 @@ a {
 	height: auto;
 	padding: 25px;
 }
+.post-card__info {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
 
+	height: 100%;
+}
+
+.post-card__info__vols {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	.vol-req {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+	}
+}
 .post-card__info h1 {
 	color: $text-color;
 	display: block;
@@ -122,8 +136,32 @@ a {
 .post-card__info a:hover {
 	text-decoration: underline;
 }
+.apply-btn {
+	background-color: $button-primary;
+	color: $white;
+	border: none;
+	border-radius: 0.3rem;
+	padding: 10px 25px;
+	font-size: 20px;
+	font-weight: 300;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	margin-top: 20px;
+	&:hover {
+		-webkit-transform: translateY(-3px);
+		transform: translateY(-3px);
+	}
+	&:active {
+		-webkit-transform: translateY(3px);
+		transform: translateY(3px);
+	}
+}
+
 // *********************************************************** //
 .post-card__img {
+	max-width: 500px;
+	background-color: #000;
+	overflow: hidden;
 	img {
 		width: 100%;
 		background-repeat: no-repeat;
@@ -135,6 +173,13 @@ a {
 		border-bottom-right-radius: 0.3rem;
 		border-top-right-radius: 0.3rem;
 		transition: all 1s;
+		opacity: 0.7;
+	}
+
+	&:hover img {
+		-webkit-transform: scale(1.1);
+		transform: scale(1.1);
+		opacity: 1;
 	}
 }
 

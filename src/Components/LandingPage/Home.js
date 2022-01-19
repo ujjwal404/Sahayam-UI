@@ -2,8 +2,6 @@ import { useMutation, gql } from '@apollo/client';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import './home.scss';
-import first from './one.png';
-import jwt from 'jsonwebtoken';
 
 const LOGIN = gql`
 	mutation signIn($email: String!, $password: String!) {
@@ -22,6 +20,7 @@ function Home() {
 			history.push('/dashboard');
 		},
 		onError: (error) => {
+			console.log('Login error : ');
 			console.log(error.message);
 		}
 	});

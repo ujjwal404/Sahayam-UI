@@ -6,7 +6,8 @@ import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@ap
 
 import { setContext } from 'apollo-link-context';
 
-const uri = process.env.API_URI || 'http://localhost:8080/api';
+const local = 'http://localhost:8080/api';
+const uri = 'https://sahayam-api.herokuapp.com/api';
 
 const httpLink = createHttpLink({ uri });
 const cache = new InMemoryCache();
@@ -21,8 +22,11 @@ const authLink = setContext(async (_, { headers }) => {
 });
 
 const client = new ApolloClient({
-	link: authLink.concat(httpLink),
+	// link: authLink.concat(httpLink),
+	link: httpLink,
 	cache,
+	name: 'sahayam-web-client',
+	version: '1.0',
 	resolvers: {},
 	connectToDevTools: true
 });

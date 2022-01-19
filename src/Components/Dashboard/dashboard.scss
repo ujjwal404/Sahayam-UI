@@ -8,7 +8,7 @@
 // dashboard with sidebar and posts
 
 .main-dashboard-darktheme {
-	margin-top: 60px;
+	margin-top: 20px;
 	background-color: $background-color;
 	height: 100vh;
 	color: #eee;
@@ -28,6 +28,13 @@
 		padding: 0.5rem;
 		font-size: 1.5rem;
 		font-weight: bold;
+
+		.sidebar-sticky {
+			width: 100%;
+			position: -webkit-sticky;
+			position: sticky;
+			top: 80px;
+		}
 	}
 
 	.content {
@@ -82,5 +89,23 @@
 				margin-top: 10px;
 			}
 		}
+	}
+}
+.profile-heading {
+	display: flex;
+	flex-direction: row;
+	border-bottom: 1px solid $border-color;
+}
+
+.profile-box {
+	h4 {
+		font-size: 20px;
+		font-weight: 400;
+		padding-bottom: 10px;
+	}
+	p {
+		font-size: 20px;
+		font-weight: 300;
+		padding-top: 10px;
 	}
 }
