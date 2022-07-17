@@ -1,7 +1,10 @@
 import { useMutation, gql } from '@apollo/client';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+
+import { NotificationManager} from 'react-notifications';
 import './home.scss';
+
 
 const LOGIN = gql`
 	mutation signIn($email: String!, $password: String!) {
@@ -12,22 +15,26 @@ const LOGIN = gql`
 function Home() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const history = useHistory();
+	const history = useHistory();		
 
 	const [login, { loading, error }] = useMutation(LOGIN, {
 		onCompleted: (data) => {
 			localStorage.setItem('AUTH_TOKEN', data.signIn);
+			NotificationManager.success("Login Successful");
 			history.push('/dashboard');
 		},
 		onError: (error) => {
+			console.log(email,password)
 			console.log('Login error : ');
 			console.log(error.message);
+			NotificationManager.error(`${error.message}`);
 		}
 	});
 
 	function onLogin(e) {
 		e.preventDefault();
-		login({ variables: { email, password } });
+			// login({ variables: { email, password } });
+			login({ variables: { email, password } });
 	}
 
 	return (
@@ -36,15 +43,29 @@ function Home() {
 				<nav></nav>
 				<div className="hero-section">
 					<div className="landing-left">
-						<div className="hero-heading">
-							<h1>Welcome to Sahayam</h1>
-							<p>A platform to connect people with NGOs. </p>
+						<div className="container-one">
+							<div className="hero-heading">
+								<h1>Welcome to Sahayam</h1>
+								<p>A platform to connect people with NGOs. </p>
+							</div>
+							<div className="register-buttons">
+								<Link to="/auth/ngo" style={{ textDecoration: 'none' }}>
+									<button>
+										<p>Register as NGO</p>
+									</button>
+								</Link>
+								<Link to="/auth/user">
+									<button>
+										<p>Register as User</p>
+									</button>
+								</Link>
+								</div>
 						</div>
 						<div className="login-container">
 							<h1> Login</h1>
 							<form onSubmit={(e) => onLogin(e)}>
 								<input
-									type="text"
+									type="email"
 									placeholder="email"
 									value={email}
 									required
@@ -54,27 +75,13 @@ function Home() {
 									type="password"
 									required
 									placeholder="password"
-									value={password}
+									value={ password }
 									onChange={(e) => setPassword(e.target.value)}
 								/>
 								<button type="submit">Login</button>
 							</form>
 						</div>
-						<div className="register-buttons">
-							<Link to="/auth/ngo" style={{ textDecoration: 'none' }}>
-								<button>
-									<p>Register as NGO</p>
-								</button>
-							</Link>
-							<Link to="/auth/user">
-								<button>
-									<p>Register as User</p>
-								</button>
-							</Link>
-						</div>
 					</div>
-
-					<div className="landing-right">{/* <img src={first} alt="hero" /> */}</div>
 				</div>
 			</div>
 		</main>

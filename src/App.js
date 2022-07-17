@@ -7,10 +7,13 @@ import AddTask from './Components/TaskForm/AddTask';
 import Home from './Components/LandingPage/Home';
 import PrivateRoute from './Utils/PrivateRoute';
 import NgoRoute from './Utils/NgoRoute';
+import {NotificationContainer} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 function App() {
   return (
     <div className="App">
+      <NotificationContainer/>
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Home} />
@@ -18,7 +21,7 @@ function App() {
           <Route path="/auth/user" component={AuthUI} />
           <Route path="/auth/ngo" component={NGOauth} />
           <NgoRoute path="/addtask" component={AddTask} />
-        </Switch>
+          </Switch>
       </BrowserRouter>
     </div>
   );
