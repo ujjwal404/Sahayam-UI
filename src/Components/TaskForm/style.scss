@@ -6,7 +6,7 @@
 	border-radius: 7px;
 	height: 98vh;
 	background-color: $background-color;
-	background-image: url('./image.png');
+	background-image: url('./image.jpg');
 	background-size: 80% auto;
 	background-repeat: no-repeat;
 	background-position: 100% 30%;
@@ -24,11 +24,9 @@
 		transition: all 0.3s ease-out;
 	}
 	button:hover {
-		-webkit-transform: translateY(-5px);
 		transform: translateY(-5px);
 	}
 	button:active {
-		-webkit-transform: translateY(3px);
 		transform: translateY(3px);
 	}
 }

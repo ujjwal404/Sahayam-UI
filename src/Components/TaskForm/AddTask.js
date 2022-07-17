@@ -4,6 +4,7 @@ import './style.scss';
 import { gql, useMutation } from '@apollo/client';
 import { parse } from 'graphql';
 import { useHistory } from 'react-router-dom';
+import { NotificationManager} from 'react-notifications';
 const POST_TASK = gql`
 	mutation postTask($task: InputTask!) {
 		post(task: $task) {
@@ -44,9 +45,11 @@ function AddTask() {
 			setVolRequired('');
 			setImageURL('');
 			setTags([]);
+			NotificationManager.success("Task posted successfully! 🎉")
 			history.push('/dashboard');
 		},
 		onError: (error) => {
+			NotificationManager.error(`${error.message}`)
 			console.log(error.message);
 		}
 	});
@@ -54,7 +57,7 @@ function AddTask() {
 	function onTaskSubmit(e) {
 		e.preventDefault();
 		if (volRequired < 1 || volRequired > 100) {
-			alert('Volunteers required must be between 1 and 100');
+			NotificationManager.error('Volunteers required must be between 1 and 100');
 			return;
 		}
 		const task = { title, description, location, volRequired, criteria, imageURL, tags };

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import './dashboard.scss';
 import Post from '../Posts/Post';
 import { Link, useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
-
+import { NotificationManager} from 'react-notifications';
 import Layout from '../Layout/Layout';
 
 import { gql, useQuery } from '@apollo/client';
@@ -11,7 +10,7 @@ import Loading from '../Extras/Loading';
 import { BiBookAdd } from 'react-icons/bi';
 import { AiOutlineUser } from 'react-icons/ai';
 import { BsFillPersonFill } from 'react-icons/bs';
-
+import './dashboard.scss';
 const GET_POSTS = gql`
 	query Feed($tags: [String]) {
 		feed(tags: $tags) {
@@ -87,11 +86,17 @@ function Dashboard() {
 		window.addEventListener('popstate', () => {
 			history.go(1);
 		});
-	}, []);
+	}, [history,show]);
 
 	if (res1.loading || res2.loading || res3.loading || res4.loading) return <Loading />;
 	if (res1.error) return `Error! ${res1.error.message}`;
 	// if (res4.error) return `Error! ${res4.error.message}`;
+	if (res4.error) {
+		//NotificationManager.warning(`${res4.error.message}`)
+	}
+	if (res3.error) {
+		//NotificationManager.warning(`${res3.error.message}`)
+	}
 
 	return (
 		<Layout>
@@ -138,18 +143,18 @@ function Dashboard() {
 								</div>
 								{show ? (
 									<div>
-										{/* <p> NGO name : {res4.data.NGOme.name}</p>
+										<p> NGO name : {res4.data.NGOme.name}</p>
 										<p> email : {res4.data.NGOme.email}</p>
 										<p> contact : {res4.data.NGOme.contact}</p>
 										<p> location : {res4.data.NGOme.location}</p>
-										<p> about : {res4.data.NGOme.about}</p> */}
+										<p> about : {res4.data.NGOme.about}</p>
 									</div>
 								) : (
 									<div>
-										{/* <p> name : {res3.data.me.name}</p>
+										<p> name : {res3.data.me.name}</p>
 										<p> email : {res3.data.me.email}</p>
 										<p> contact : {res3.data.me.contact}</p>
-										<p> location : {res3.data.me.location}</p> */}
+										<p> location : {res3.data.me.location}</p>
 									</div>
 								)}
 							</div>

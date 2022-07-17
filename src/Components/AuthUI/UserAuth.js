@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import './authui.scss';
 import image from './auth.svg';
-
+import { NotificationManager } from 'react-notifications';
 import { gql, useMutation } from '@apollo/client';
 
 const SIGNUP_MUTATION = gql`
@@ -23,23 +23,34 @@ function Auth() {
 	const [signup, { loading, error }] = useMutation(SIGNUP_MUTATION, {
 		onCompleted: (data) => {
 			localStorage.setItem('AUTH_TOKEN', data.signUp);
+			NotificationManager.success("Registed Successfully")
 			history.push('/dashboard');
 		},
 		onError: (error) => {
 			console.log(error.message);
+			NotificationManager.error(`${error.message}`)
 		}
 	});
 
+	function isNumeric(str) {
+  if (typeof str != "string") return false // we only process strings!  
+  return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+         !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+}
+
 	function onSubmit(e) {
 		e.preventDefault();
-		const user = { email, password, name, contact, location };
+		const user = { email, password };
 		Object.keys(user).map((key, index) => {
 			if (user[key] == '') {
 				console.log("Field can't be empty");
 				return;
 			}
 		});
-
+		if (!isNumeric(contact) || contact.length != 10) {
+			NotificationManager.error("Please enter a valid contact number");
+			return;
+		}
 		signup({ variables: { user } })
 			.then((result) => console.log('User Registered'))
 			.catch((error) => console.log(error.message));
@@ -65,15 +76,17 @@ function Auth() {
 						</div>
 
 						<div className="form-inputs">
-							<>
+							<form onSubmit={(e) => onSubmit(e)}>
 								<input
-									type="text"
+									type="email"
+									required
 									placeholder="E-mail Address"
 									value={email}
 									onChange={(e) => setEmail(e.target.value)}
 								/>
 								<input
 									type="password"
+									required
 									placeholder="Password"
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
@@ -87,7 +100,9 @@ function Auth() {
 								<input
 									type="text"
 									placeholder="Contact"
-									value={contact}
+									value={ contact }
+									required
+									maxLength="10"
 									onChange={(e) => setContact(e.target.value)}
 								/>
 								<input
@@ -96,11 +111,12 @@ function Auth() {
 									value={location}
 									onChange={(e) => setLocation(e.target.value)}
 								/>
-							</>
-						</div>
+						
 
 						<div className="submit-btn">
-							<button onClick={(e) => onSubmit(e)}>Register</button>
+							<button type="submit">Register</button>
+								</div>
+									</form>
 						</div>
 					</div>
 				</div>

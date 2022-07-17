@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import './authui.scss';
 import image from './auth.svg';
 import { gql, useMutation } from '@apollo/client';
+import { NotificationManager } from 'react-notifications';
 
 const SIGNUP_MUTATION = gql`
 	mutation signUp($ngo: InputNGO) {
@@ -27,12 +28,19 @@ function NGOauth() {
 			console.log(data);
 			localStorage.setItem('AUTH_TOKEN', data.registerNGO);
 			history.push('/dashboard');
+			NotificationManager.success("Successfully registered as NGO.")
 		},
 		onError: (error) => {
 			console.log(error.message);
+			NotificationManager.error(`${error.message}`)
 		}
 	});
-
+	
+	function isNumeric(str) {
+  if (typeof str != "string") return false // we only process strings!  
+  return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+  !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+}
 	// signup NGO
 	function onSubmit(e) {
 		e.preventDefault();
@@ -44,6 +52,10 @@ function NGOauth() {
 				return;
 			}
 		});
+		if (!isNumeric(contact)) {
+			NotificationManager.error("Please enter a valid contact number");
+			return;
+		}
 		signup({ variables: { ngo } });
 	}
 
@@ -67,40 +79,50 @@ function NGOauth() {
 						</div>
 
 						<div className="form-inputs">
-							<>
+							<form onSubmit={(e) => onSubmit(e)}>
 								<input
-									type="text"
+									type="email"
+									required
 									placeholder="E-mail Address"
 									value={email}
 									onChange={(e) => setEmail(e.target.value)}
 								/>
 								<input
 									type="password"
+									required
 									placeholder="Password"
+									minLength='6'
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
 								/>
 								<input
 									type="text"
 									placeholder="Name"
+									required
 									value={name}
 									onChange={(e) => setName(e.target.value)}
 								/>
 								<input
 									type="text"
 									placeholder="About"
+									minLength="10"
+									required
 									value={about}
 									onChange={(e) => setAbout(e.target.value)}
 								/>
 								<input
 									type="text"
 									placeholder="Contact"
-									value={contact}
+									required
+									value={ contact }
+									minLength="10"
+									maxLength="10"
 									onChange={(e) => setContact(e.target.value)}
 								/>
 								<input
 									type="text"
-									placeholder="Location"
+									placeholder="Location (city, country)"
+									required
 									value={location}
 									onChange={(e) => setLocation(e.target.value)}
 								/>
@@ -110,10 +132,11 @@ function NGOauth() {
 									value={field}
 									onChange={(e) => setField(e.target.value)}
 								/>
-							</>
-							<div className="submit-btn" onClick={(e) => onSubmit(e)}>
-								<button>Register</button>
-							</div>
+							
+								<div className="submit-btn">
+									<button type="submit">Register</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
